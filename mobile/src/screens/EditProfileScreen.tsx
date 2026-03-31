@@ -97,11 +97,13 @@ export default function EditProfileScreen({navigation, route}: Props) {
   const handleSave = async () => {
     const errors: string[] = [];
 
-    if (form.name !== undefined && form.name.trim().length === 0) {
-      errors.push('Name must not be empty.');
-    }
-    if (form.name && form.name.trim().length > 100) {
-      errors.push('Name must not exceed 100 characters.');
+    if (form.name !== undefined) {
+      const trimmedName = form.name.trim();
+      if (trimmedName.length === 0) {
+        errors.push('Name must not be empty.');
+      } else if (trimmedName.length > 100) {
+        errors.push('Name must not exceed 100 characters.');
+      }
     }
     if (form.dateOfBirth) {
       const dob = new Date(form.dateOfBirth);
@@ -148,7 +150,7 @@ export default function EditProfileScreen({navigation, route}: Props) {
       updated.emergencyContact = {
         name: ecName.trim(),
         phone: ecPhone.trim(),
-        relationship: ecRelationship.trim() || undefined,
+        ...(ecRelationship.trim() ? {relationship: ecRelationship.trim()} : {}),
       };
     } else {
       delete updated.emergencyContact;
