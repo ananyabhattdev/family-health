@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest --forceExit",
-    "build:apk": "cd mobile && npm ci --legacy-peer-deps && cd android && ./gradlew assembleDebug --no-daemon && mkdir -p ../../target && cp app/build/outputs/apk/debug/app-debug.apk ../../target/family-health-debug.apk"
+    "build:apk": "cd mobile && npm ci --legacy-peer-deps && cd android && ./gradlew assembleRelease --no-daemon && mkdir -p ../../target && cp app/build/outputs/apk/release/app-release.apk ../../target/family-health-release.apk"
   },
   "jest": {
     "testEnvironment": "node",
