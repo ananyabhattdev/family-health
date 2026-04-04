@@ -5,3 +5,4 @@ mobile/android/build/
 mobile/android/app/build/
 mobile/android/.gradle/
 target/*.idsig
+target/*.apk
