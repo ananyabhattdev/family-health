@@ -93,4 +93,36 @@ function validateProfileUpdateMiddleware(req, res, next) {
   next();
 }
 
-module.exports = { validateProfileUpdate, validateProfileUpdateMiddleware };
+/**
+ * Validates the body for adding a family member.
+ * Returns an array of error messages (empty if valid).
+ * @param {object} body
+ * @returns {string[]}
+ */
+function validateAddFamilyMember(body) {
+  const errors = [];
+
+  if (!body.memberId || typeof body.memberId !== 'string' || body.memberId.trim().length === 0) {
+    errors.push('memberId must be a non-empty string.');
+  }
+
+  return errors;
+}
+
+/**
+ * Express middleware that validates the add-family-member body.
+ */
+function validateAddFamilyMemberMiddleware(req, res, next) {
+  const errors = validateAddFamilyMember(req.body);
+  if (errors.length > 0) {
+    return res.status(400).json({ error: 'Validation failed.', details: errors });
+  }
+  next();
+}
+
+module.exports = {
+  validateProfileUpdate,
+  validateProfileUpdateMiddleware,
+  validateAddFamilyMember,
+  validateAddFamilyMemberMiddleware,
+};
